@@ -1,0 +1,232 @@
+// Main start 
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include "header.h"
+#include "airbus.h"
+
+
+
+
+int main() {
+
+	menu();
+
+
+
+	system("pause");
+	return 0;
+}
+
+// Main end
+
+// Airbus start
+
+#pragma once
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+
+void fclass();
+void bclass();
+
+void fclass() {
+
+	int fseats[6][5] = {0};
+	int init = 1;
+
+	// initilize 2 d array 
+	for (size_t i = 1; i < 6; i++)
+	{
+		for (size_t j = 0; j < 4; j++)
+		{
+			fseats[i][j] = init;
+			init += 1;
+		}
+	}
+	//print 2 d array with labels
+	printf(" %18s %16s %14s %14s\n", "Col-1", "Col-2", "Col-3", "Col-4");
+
+	for (size_t i = 1; i < 6; i++)
+	{
+		printf("Row %d", i);
+
+		for (size_t j = 0; j < 4; j++)
+		{
+
+			printf("\t\t0", fseats[i][j]);
+
+		}
+		printf("\n");
+	}
+
+}
+
+void bclass() {
+	int bseats[7][6] = { 0 };
+	int init = 1;
+
+	// initilize 2 d array 
+	for (size_t i = 1; i < 7; i++)
+	{
+		for (size_t j = 0; j < 6; j++)
+		{
+			bseats[i][j] = init;
+			init += 1;
+		}
+	}
+	//print 2 d array with labels
+	printf(" %18s %16s %14s %14s %15s %15s\n", "Col-1", "Col-2", "Col-3", "Col-4", "Col-5", "Col-6");
+
+	for (size_t i = 1; i < 7; i++)
+	{
+		printf("Row %d", i);
+
+		for (size_t j = 0; j < 6; j++)
+		{
+
+			printf("\t\t0", bseats[i][j]);
+
+		}
+		printf("\n");
+	}
+}
+
+void eclass() {
+	int eseats[25][10] = { 0 };
+	int init = 1;
+
+	// initilize 2 d array 
+	for (size_t i = 1; i < 25; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			eseats[i][j] = init;
+			init += 1;
+		}
+	}
+	//print 2 d array with labels
+	printf(" %18s %16s %14s %14s %16s %15s %15s %15s %15s %15s\n", "Col-1", "Col-2", "Col-3", "Col-4", "Col-5", "Col-6", "Col-7", "Col-8", "Col-9", "Col-10");
+
+	for (size_t i = 1; i < 25; i++)
+	{
+		printf("Row %d", i);
+
+		for (size_t j = 0; j < 10; j++)
+		{
+
+			printf("\t\t0", eseats[i][j]);
+
+		}
+		printf("\n");
+	}
+}
+
+// Airbus end
+
+// Header start
+
+#pragma once
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include "airbus.h"
+
+
+void menu();
+
+void menu() {
+	int option = 0;
+	printf("************************\n");
+	printf("********* MENU *********\n");
+	printf("************************\n");
+	puts("1:Print Airbus300A First Class seats");
+	puts("2:Make a booking at Airbus300A First Class");
+	puts("3:Cancel a booking at Airbus300A First Class");
+	puts("4:Print Airbus300A Business Class seats");
+	puts("5:Make a booking at Airbus300A Business Class");
+	puts("6:Cancel a booking at Airbus300A Business Class");
+	puts("7:Print Airbus300A Economy Class seats");
+	puts("8:Make a booking at Airbus300A Economy Class");
+	puts("9:Cancel a booking at Airbus300A Economy Class");
+	puts("10:Print Boing 747 First Class First Floor");
+	puts("11:Make a booking at Boing 747 First Class First Floor");
+	puts("12:Cancel a booking at  Boing 747 First Class First Floor");
+	puts("13:Print Boing 747 First Class Second Floor");
+	puts("14:Make a booking at Boing 747 First Class Second Floor");
+	puts("15:Cancel a booking at  Boing 747 First Class Second Floor");
+	puts("16::Print Boing 747 Business Class seats");
+	puts("17:Make a booking at Boing 747 Business Class");
+	puts("18:Cancel a booking at Boing 747 Business Class");
+	puts("19:Print Boing 747 Economy Class seats");
+	puts("20:Make a booking at Boing 747 Economy Class");
+	puts("21:Cancel a booking at Boing 747 Economy Class");
+	puts("22: Exit Program");
+	scanf("%d", &option);
+
+
+	switch (option)
+	{
+	case 1:
+
+		fclass();
+		menu();
+		break;
+	case 2:
+		printf("you choose option 2!!!\n");
+		break;
+	case 3:
+		printf("you choose option 3!!!\n");
+		break;
+	case 4:
+		bclass();
+		menu();
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
+		eclass();
+		menu();
+		break;
+	case 8:
+		break;
+	case 9:
+		break;
+	case 10:
+		break;
+	case 11:
+		break;
+	case 12:
+		break;
+	case 13:
+		break;
+	case 14:
+		break;
+	case 15:
+		break;
+	case 16:
+		break;
+	case 17:
+		break;
+	case 18:
+		break;
+	case 19:
+		break;
+	case 20:
+		break;
+	case 21:
+		break;
+	default:
+		break;
+	}
+
+}
+// Header end
