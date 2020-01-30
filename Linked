@@ -1,0 +1,184 @@
+#include <stdio.h>
+#include "functions.h"
+
+
+typedef struct Node Nodeptr;
+
+typedef struct Node
+{
+	int data;
+	Nodeptr* next;
+	Nodeptr* previous;
+
+} Nodeptr;
+
+extern Nodeptr * start; // We called exterm because it's being defined on a different file, in this case "myFunction.c"
+extern Nodeptr * endNode;// We called exterm because it's being defined on a different file, in this case "myFunction.c"
+
+int main() {
+
+	start = NULL;
+	endNode = NULL;
+
+
+	menu();
+
+	system("pause");
+
+	return 0;
+
+}
+
+
+#pragma once
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+void menu();
+void printTheNodes();
+void printTheNodesBackwards();
+void addToLeft();
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "functions.h"
+
+
+
+void menu() {
+	int option;
+	puts("______________________");
+	puts("");
+	puts("         MENU         ");
+	puts("______________________");
+	printf(" Hello! Welcome to the Node party\n");
+	printf("1 - Add to left\n");
+	printf("2 - Add to right\n");
+	printf("3 - Add to middle but on the left\n");
+	printf("4 - Add to middle but on the right\n");
+	printf("5 - print the list forward\n");
+	printf("6 - print the list backward\n");
+	printf("7 - delete a node(start)\n");
+	printf("8 - delete a node(end)\n");
+	printf("9 - delete any node\n");
+	printf("10 - delete all nodes\n");
+	printf("11 - print odd numbers\n");
+	printf("12 - print even numbers\n");
+	printf("0 - exit\n");
+	scanf("%d", &option);
+	switch (option) {
+
+	case 1:
+		addToLeft();
+		menu();
+
+	case 5:
+		printTheNodes();
+		menu();
+
+	}
+}
+
+typedef struct Node Nodeptr;
+
+typedef struct Node
+{
+	int data;
+	Nodeptr* next;
+	Nodeptr* previous;
+} Nodeptr;
+
+Nodeptr * start;
+Nodeptr * endNode;
+
+void printTheNodes() {
+	if (start == NULL && endNode == NULL) {
+		puts("This is empty! You have to input a number first.");
+
+	}
+	
+	if (start == endNode) {
+
+		printf(" %d |", start->data);
+
+	}
+
+	
+	{
+		Nodeptr* current;
+		current = start;
+		printf("NULL << [");
+
+		while (current != NULL)
+		{
+			printf(" %d |", current->data);
+			current = current->next;
+		}
+		
+		puts("] >> NULL\n");
+
+
+	}
+}
+
+void printTheNodesBackwards() {
+
+	if (start == NULL && endNode == NULL) {
+		puts("The list is empty");
+
+	}
+	else if (start == endNode) {
+
+		printf("%d \n", start->data);
+
+	}
+	else
+	{
+		Nodeptr* current;
+		current = endNode;
+
+		while (current != NULL)
+		{
+			printf("%d ", current->data);
+			current = current->previous;
+		}
+		puts("");
+
+
+	}
+
+}
+
+void addToLeft() {
+	Nodeptr * currentTemp = (Nodeptr*)malloc(sizeof(Nodeptr));
+
+
+	if (start == NULL && endNode == NULL)
+	{
+		puts("Add the Data");
+		scanf(" %d |", &currentTemp->data);
+
+		start = currentTemp;
+		endNode = currentTemp;
+		start->next = NULL;
+		start->previous = NULL;
+
+
+	}
+	else {
+		puts("Add the Data");
+		scanf(" %d |", &currentTemp->data);
+		start->previous = currentTemp;
+		currentTemp->next = start;
+		currentTemp->previous = NULL;
+		start = currentTemp;
+		start->previous = NULL;
+		endNode->next = NULL;
+
+
+	}
+
+}
