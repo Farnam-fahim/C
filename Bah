@@ -1,0 +1,268 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+void menu(vector<Profile*> &vectorProfile){
+	int option{}, Choice{};
+
+cout << "***********************************" << endl;
+cout << "******** The BookFace PROFILES ***********" << endl;
+cout << "***********************************" << endl;
+cout << "***********  - MENU -  **************\n" << endl;
+
+cout << "Press 1 to : Create a Profile" << endl;
+cout << "Press 2 to : Delete a Profile" << endl;
+cout << "Press 3 to : Edit a Profile" << endl;
+cout << "Press 4 to : Print Profiles" << endl;
+cout << "Press 5 to : Send a Message" << endl;
+cout << "Press 9 to : Exit" << endl;
+cin >> option;
+switch (option) {
+case 1:
+		createProfile(vectorProfile);
+	
+	break;
+case 2:
+	
+	
+		deletePro(vectorProfile);
+
+	break;
+case 3:
+	
+		editProfile(vectorProfile);
+
+	break;
+
+case 4:
+
+		printPro(vectorProfile);
+
+
+	break;
+case 5:
+		sendMsg(vectorProfile);
+	break;
+case 9:
+	if (option == 9) {
+		exit(9);
+	}
+	break;
+default:
+	cout << "The selected option does not exist. Plz try again" << endl;
+	menu(vectorProfile);
+	break;
+	}
+
+}
+
+//Create a Profile
+void createProfile(vector<Profile*> &vectorProfile) {
+	Profile *NewProfile = new Profile;
+	string name, nationality, program, city, favProgram, bio;
+	int age{}, proChoice{};
+	cout << "**** ALERT!! If you make a mistake in creating a profile, you will need to start from the beginning!! ****" << endl;
+	cout << endl;
+
+	cout << "What is the Full Name you go by??" << endl;
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	getline(cin, name);
+	NewProfile->setFullName(name);
+
+	
+	cout << "What is your current age?" << endl;
+	cin >> age;
+	if (age > 0 || age < 420) {
+		NewProfile->setAge(age);
+	}
+	else {
+		cout << "You can't be that old... " << endl;
+		createProfile(vectorProfile);
+	}
+	
+	cout << "What is your Nationality?" << endl;
+	cin >> nationality;
+	NewProfile->setNationality(nationality);
+
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout << "Which program are you studying??" << endl;
+	getline(cin, program);
+	NewProfile->setProgram(program);
+
+	cout << "What City do you reside in??" << endl;
+	cin >> city;
+	NewProfile->setCity(city);
+
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout << "What is your Favorite Programming Language??" << endl;
+	getline(cin, favProgram);
+	NewProfile->setFPL(favProgram);
+	
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout << "Tell us something about yourself to fill in your Bio!~!" << endl;
+	getline(cin, bio);
+	NewProfile->setBio(bio);
+
+	cout << "Please choose either 1 for Hand OR 2 for Flame Or 3 for Castle as your profile pic!" << endl; 
+	cin >> proChoice;
+	NewProfile->setImage(proChoice);
+
+	vectorProfile.push_back(NewProfile);
+	cout << "Profile Created!! Welcome to Book Face! =)" << endl;
+
+	backToMenu(vectorProfile);
+}
+
+//Edit a Profile
+void editProfile(vector<Profile*> &vectorProfile) {
+	cout << "This is the list of the existing Profiles!" << endl;
+
+	for (size_t i = 0; i < (&vectorProfile)->size(); i++) {
+		cout << "	Profile Index:  " << i << endl;
+		cout << "			Profile Name: " << (&vectorProfile)->at(i)->getFullName() << endl;
+	}
+	cout << "**** ALERT!! If you make a mistake in creating a profile, you will need to start from the beginning!! ****" << endl;
+	cout << endl;
+
+	string name, nationality, program, city, favProgram, bio;
+	int age{}, choice{}, proChoice{};
+	cout << "Please chooce from the index number to Edit that Profile!!" << endl;
+	cout << "Which Profile were you thinking of Editing?" << endl;
+	cin >> choice;
+
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout << "What is the New name?" << endl;
+	getline(cin, name);
+	vectorProfile.at(choice)->setFullName(name);
+
+	cout << "What is your New Age?" << endl;
+	cin >> age;
+	if (age > 0 || age < 420) {
+		vectorProfile.at(choice)->setAge(age);
+	}
+	else {
+		cout << "You can't be that old... " << endl;
+		createProfile(vectorProfile);
+	}
+	   
+	cout << "What is the New Nationality?" << endl;
+	cin >> nationality;
+	vectorProfile.at(choice)->setNationality(nationality);
+	
+	cout << "What is the new Program that you're taking?" << endl;
+	cin >> program;
+	vectorProfile.at(choice)->setProgram(program);
+
+	cout << "What is your new City of residence?" << endl;
+	cin >> city;
+	vectorProfile.at(choice)->setCity(city);
+
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout << "What is your new favorite Program?" << endl;
+	getline(cin, favProgram);
+	vectorProfile.at(choice)->setFPL(favProgram);
+
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout << "What is something new that you can tell about us??" << endl;
+	getline(cin, bio);
+	vectorProfile.at(choice)->setBio(bio);
+
+	cout << "What would you like your new profile picture to be??" << endl;
+	cout << "Please choose either 1 for Hand OR 2 for Flame Or 3 for Castle as your profile pic!" << endl;
+	cin >> proChoice;
+	vectorProfile.at(choice)->setImage(proChoice);
+
+	backToMenu(vectorProfile);
+}
+
+//Delete Profile
+void deletePro(vector<Profile*> &vectorProfile) {
+	int delChoice{};
+	for (size_t i = 0; i < (&vectorProfile)->size(); i++) {
+		cout << "	Profile Index number:  " << i << endl;
+		cout << "			Name of Profile:  " << (&vectorProfile)->at(i)->getFullName() << endl;
+	}
+	
+	cout << "Please enter the Profile Index that you would you like to Erase?" << endl; cin >> delChoice;
+	vectorProfile.erase(vectorProfile.begin() + delChoice);
+	cout << "Profile Succesfully deleted!" << endl;
+	backToMenu(vectorProfile);
+}
+
+//Printing Profiles
+void printPro(vector<Profile*> &vectorProfile) {
+	cout << "This is the list of the existing Profiles!" << endl;
+
+	for (size_t i = 0; i < (&vectorProfile)->size(); i++) {
+		printPic(vectorProfile.at(i)->getImage());
+		cout << "	Index number:  " << i << endl;
+		cout << "			Profile name:  " << (&vectorProfile)->at(i)->getFullName() << endl;
+		cout << "		Age:  " << (&vectorProfile)->at(i)->getAge() << endl;
+		cout << "			Nationality:  " << (&vectorProfile)->at(i)->getNationality() << endl;
+		cout << "		Program being studies:  " << (&vectorProfile)->at(i)->getProgram() << endl;
+		cout << "			Current City:  " << (&vectorProfile)->at(i)->getCity()<< endl;
+		cout << "		Fav Program:  " << (&vectorProfile)->at(i)->getFPL() << endl;
+		cout << "			Bio:  " << (&vectorProfile)->at(i)->getBio() << endl;
+		cout << "		Testimonial:  " << (&vectorProfile)->at(i)->getTestimonial() << endl;
+	}
+	backToMenu(vectorProfile);
+}
+
+//Sending a "Testimonial" to another profile
+void sendMsg(vector<Profile*> &vectorProfile) {
+	string sender, receiver, message;
+	cout << "This is the list of the existing Profiles!" << endl;
+	for (size_t i = 0; i < (&vectorProfile)->size(); i++) {
+		cout << "	Profile Index number:  " << i << endl;
+		cout << "			Name of Profile:  " << (&vectorProfile)->at(i)->getFullName() << endl;
+	}
+	cout << "Please chooce from the index number to send a message!" << endl;
+	cout << "Who is the sender of this message??" << endl; cin >> sender;
+	cout << "MUST BE FULL NAME!!! SAME WAY PRINTED ABOVE!!" << endl;
+	cout << "Who would you like to send a message to?" << endl; cin >> receiver;
+	for (size_t i = 0; i < (&vectorProfile)->size(); i++) {
+		if (receiver.compare((&vectorProfile)->at(i)->getFullName()) == 0) {
+
+			cout << "What is your message??" << endl;
+			getline(cin, message);
+			vectorProfile.at(i)->setTestimonial(vectorProfile.at(i)->getTestimonial()+ "\n You have a Message from: " +sender+ "\t\n "+message);
+			cout << "You have succesfully sent a message! =D" << endl;
+			backToMenu(vectorProfile);
+		}
+	}cout << "Cannot find send message to " + receiver + "\n Profile does not exist in your DataBase :/" << endl;
+	backToMenu(vectorProfile);
+}
+
+//Back to main menu
+void backToMenu(vector<Profile*> &vectorProfile) {
+	int choice{};
+	cout << "Press 1 to go back to menu\n\t OR press any key to exit" << endl; cin >> choice;
+	if (choice == 1) {
+		menu(vectorProfile);
+	}	else {
+		exit(0);
+	}
+}
+
+//Printing profile pic
+void printPic(int choice) {
+	if (choice == 1 || choice == 2 || choice == 3) {
+		switch (choice) {
+		case 1:
+			theHand();
+			break;
+		case 2:
+			flaming();
+			break;
+		case 3:
+			castle();
+			break;
+		}
+	}
+	else {
+		cout << "Yerr choice was nott on teh liyst dawgh!    >:(" << endl;
+	}
+}
